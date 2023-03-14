@@ -1,9 +1,8 @@
-const sql = require("../database/config");
 const modal = () => {}
 
 modal.registerUser = async (user,result) => {
     const sql = require('../database/config')
-    sql.query('SELECT * FROM users WHERE email = ?',[user.email], (err_, result_, fields) => {
+    sql.query('SELECT * FROM users WHERE email = ?',[user.email], (err_, result_) => {
         if(result_.length > 0){
             if (err_) throw err_.message
             result(null,{msg:"email address already used",email:user.email})
@@ -29,7 +28,7 @@ modal.getAllUsers = (result) => {
 
 modal.getSingleUser = (userID,result) => {
     const sql = require('../database/config')
-    sql.query('SELECT * FROM users WHERE id = ?',[userID], (err_, result_, fields) => {
+    sql.query('SELECT * FROM users WHERE id = ?',[userID], (err_, result_) => {
         if(err_) throw err_
         result(null,result_)
     })
@@ -38,9 +37,9 @@ modal.getSingleUser = (userID,result) => {
 modal.updateSingleUserDetails = (user,result) => {
     const sql = require('../database/config')
     const { id,username,email } = user;
-    sql.query('SELECT * FROM users WHERE id = ?',[id], (err_, result_, fields) => {
+    sql.query('SELECT * FROM users WHERE id = ?',[id], (err_, result_) => {
         if(result_.length > 0){
-            sql.query('UPDATE users SET username = ?,email = ? WHERE id = ?',[username,email,id],(error,results__) => {
+            sql.query('UPDATE users SET username = ?,email = ? WHERE id = ?',[username,email,id],(error) => {
                 if(error) throw error
                 result(null,{id:id,msg:"user updated successful"})
             })
@@ -52,9 +51,9 @@ modal.updateSingleUserDetails = (user,result) => {
 
 modal.deleteUser = (userID,result) => {
     const sql = require('../database/config')
-    sql.query('SELECT * FROM users WHERE id = ?',[userID], (err_, result_, fields) => {
+    sql.query('SELECT * FROM users WHERE id = ?',[userID], (err_, result_) => {
         if(result_.length > 0){
-            sql.query('DELETE FROM users WHERE id = ? ',[userID],(error,res) => {
+            sql.query('DELETE FROM users WHERE id = ? ',[userID],(error) => {
                 if (error) throw error
                 result(null, {msg:`user with id ${userID} is deleted`
             })
