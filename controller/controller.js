@@ -1,9 +1,43 @@
 const controller = () => { }
+const modal = require('../modal/modal')
 
-controller.createNewUser = (req,res) => { res.send({msg:'create new user from controller'}) }
-controller.getAllUsers = (req,res) => { res.send({msg:'fetch all users from controller'}) }
-controller.getSingleUser = (req,res) => { res.send({msg:'get single user from controller'}) }
-controller.updateUser = (req,res) => { res.send({msg:'update user from controller'}) }
-controller.deleteUser = (req,res) => { res.send({msg:'remove user from controller'}) }
+controller.createNewUser = (req,res) => {
+    modal.registerUser(req.body, (err, data) => {
+        if (err) console.log(err)
+        res.send(data)
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
+controller.getAllUsers = (req,res) => {
+    modal.getAllUsers((err,data) => {
+        if(err) throw err
+        res.send(data)
+    })
+}
+controller.getSingleUser = (req,res) => {
+    modal.getSingleUser(req.params.id,(err,data) => {
+        if(err) throw err
+        if(data.length > 0){
+            res.send(data)
+        }else{
+            res.send({msg:`user with ${req.params.id} not found`})
+        }
+    })
+}
+
+controller.updateUser = (req,res) => {
+    modal.updateSingleUserDetails(req.body,(err,data) => {
+        if(err) throw err
+        res.send(data)
+    })
+}
+controller.deleteUser = (req,res) => {
+    modal.deleteUser(req.params.id,(err,data) => {
+        if (err) throw err
+        res.send(data)
+    })
+}
 
 module.exports = controller

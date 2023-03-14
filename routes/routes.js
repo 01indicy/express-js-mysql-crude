@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const controller = require('../controller/controller')
 
-router.get('/',(req, res) => { console.log('default route') })
+router.get('/',(req, res) => { res.send({msg:'default route'}) })
 router.post('/createUser',controller.createNewUser)
-router.get('/getAllUsers',controller.getAllUsers)
-router.get('/getUser:id',controller.getSingleUser)
-router.put('/updateUser:id',controller.updateUser)
-router.delete('/deleteUser:id',controller.deleteUser)
+router.get('/getUsers',controller.getAllUsers)
+router.get('/getUser/:id',controller.getSingleUser)
+router.patch('/updateUser',controller.updateUser)
+router.delete('/deleteUser/:id',controller.deleteUser)
 
 module.exports = router
