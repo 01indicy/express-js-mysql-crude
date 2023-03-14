@@ -7,8 +7,5 @@ const port = process.env.PORT;
 
 app.use(cors())
 app.use((req, res, next) => { next() })
-app.get('/',(req, res) => {
-    res.send({msg:'default route'})
-})
-
+app.use('/',require('./routes/routes'))
 app.listen(port,() => { console.log(`server is running on port ${port}`) })
