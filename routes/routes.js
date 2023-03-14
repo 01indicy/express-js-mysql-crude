@@ -1,10 +1,11 @@
 const router = require('express').Router()
+const controller = require('../controller/controller')
 
 router.get('/',(req, res) => { console.log('default route') })
-router.post('/createUser',(req, res) => { res.send({msg:'create new user'}) })
-router.get('/getAllUsers',(req, res) => { res.send({msg: 'get all users'}) })
-router.get('/getAllUsers:id',(req, res) => { res.send({msg:'get single user'}) })
-router.put('/getAllUsers:id',(req, res) => { res.send({msg:'update user'}) })
-router.delete('/getAllUsers:id',(req, res) => { res.send({msg:'delete user'}) })
+router.post('/createUser',controller.createNewUser)
+router.get('/getAllUsers',controller.getAllUsers)
+router.get('/getUser:id',controller.getSingleUser)
+router.put('/updateUser:id',controller.updateUser)
+router.delete('/deleteUser:id',controller.deleteUser)
 
 module.exports = router
